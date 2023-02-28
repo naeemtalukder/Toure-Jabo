@@ -37,8 +37,9 @@ var boatObject = {
 
 function displayServices(service) {
     const mainSection = document.getElementById("main-section");
-
-    const div = document.createElement("div")
+    const stringified = JSON.stringify(service);
+    const div = document.createElement("div");
+     
     div.innerHTML = `
     <div class="card mt-3 mx-auto" style="max-width: 800px;">
     <div class="row g-0">
@@ -49,11 +50,17 @@ function displayServices(service) {
         <div class="card-body">
           <h5 class="card-title">Transport Mood ${service.vehicle}</h5>
           <p class="card-text">${service.description}</p>
-          <p class="card-text"><small class="text-muted">Fare Per Kilo: ${service.farePerKilo}</small> <small class="text-muted">Capacity: ${service.capacity}</small></p>
-        </div>
+          <p class="card-text"><small class="text-muted">Fare Per Kilo: ${service.farePerKilo}</small>
+           <small class="text-muted">Capacity: ${service.capacity}</small></p>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+           onclick='handleBooking(${stringified})' data-bs-target="#exampleModal">
+          Book Now
+          </button>
+          </div>
       </div>
     </div>
-  </div>
+    </div>
     `
     mainSection.appendChild(div)
     console.log(service);
@@ -63,3 +70,23 @@ displayServices(busObject);
 displayServices(boatObject);
 displayServices(bikeObject);
 displayServices(cycleObject);
+
+
+// handle booking
+
+function handleBooking(obj) {
+  const modalBody = document.getElementById("modal-body")
+
+  modalBody.innerHTML = `
+  <div class="card mx-auto" style="width: 18rem;">
+  <img src=${obj.imageUrl} class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Vehicle Mode: ${obj.vehicle}</h5>
+    <p class="card-text">${obj.description}</p>
+    <p class="card-text"><small class="text-muted">Fare Per Kilo: ${obj.farePerKilo}</small>
+     <small class="text-muted">Capacity: ${obj.capacity}</small></p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+  `
+}
