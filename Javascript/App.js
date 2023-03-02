@@ -68,16 +68,12 @@ function displayServices(service) {
 }
 
 function displayAllArticles(arr) {
-  // for (let i = 0; i < arr.length; i++) {
-  //   const element = arr[i];
+  
+  // let i=0 ;
+  // while(i<arr.length){
   //   displayServices(bikeObject);
+  //   i++
   // }
-
-  let i=0 ;
-  while(i<arr.length){
-    displayServices(bikeObject);
-    i++
-  }
 }
 displayAllArticles(serviceArray)
 
@@ -143,3 +139,15 @@ function calculateCost(obj) {
 
 console.log(obj)
 }
+
+document.getElementById("search-btn").addEventListener("click", function(){
+  const value = document.getElementById("search-value").value;
+  for (let i = 0; i < serviceArray.length; i++) {
+    const element = serviceArray[i];
+    if(value == element.vehicle){
+      console.log(element)
+    }
+  }
+
+  console.log("search", value)
+})
