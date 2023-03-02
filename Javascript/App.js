@@ -34,6 +34,7 @@ var boatObject = {
     description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis ut accusantium saepe provident repudiandae, placeat voluptas similique delectus blanditiis nam!"
 };
 
+const serviceArray =[bikeObject, carObject, busObject, cycleObject, boatObject]
 
 function displayServices(service) {
     const mainSection = document.getElementById("main-section");
@@ -62,9 +63,25 @@ function displayServices(service) {
     </div>
     </div>
     `
-    mainSection.appendChild(div)
+    mainSection.appendChild(div);
     // console.log(service);
 }
+
+function displayAllArticles(arr) {
+  // for (let i = 0; i < arr.length; i++) {
+  //   const element = arr[i];
+  //   displayServices(bikeObject);
+  // }
+
+  let i=0 ;
+  while(i<arr.length){
+    displayServices(bikeObject);
+    i++
+  }
+}
+displayAllArticles(serviceArray)
+
+
 displayServices(carObject);
 displayServices(busObject);
 displayServices(boatObject);
@@ -78,19 +95,35 @@ function handleBooking(obj) {
   const modalBody = document.getElementById("modal-body")
   const stringifiedObj = JSON.stringify(obj);
 
+  var vehicle = "Bus"
+  var id = vehicle + "input"
+  var id2 = vehicle + "farePerKilo"
+
   modalBody.innerHTML = `
   <div class="card mx-auto" style="width: 18rem;">
   <img src=${obj.imageUrl} class="card-img-top" alt="...">
   <div class="card-body">
+
     <h5 class="card-title">Vehicle Mode: ${obj.vehicle}</h5>
     <p class="card-text">${obj.description}</p>
     <p class="card-text"><small class="text-muted">Fare Per Kilo: ${obj.farePerKilo}</small>
      <small class="text-muted">Capacity: ${obj.capacity}</small></p>
-    <form class="d-flex flex-column" role="search">
-      <input class="form-control my-2" type="search" placeholder="Search" aria-label="Search">
-      <input class="form-control my-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" id="search-btn" onclick='calculateCost(${stringifiedObj})' type="submit">Search</button>
-    </form>
+
+    <div class="d-flex flex-column" role="search">
+
+      <p>Fare: <small class="text-muted" id="fare"></small> </p>
+      <p>Tax: <small class="text-muted" id="tax"></small> </p>
+      <p>Total-cost: <small class="text-muted" id="total-cost"></small> </p>
+
+      <input class="form-control my-2" id="distance-input" 
+      type="number" placeholder="Kilomiter" aria-label="Search">
+
+      <input class="form-control my-2" id="quantity-input" 
+      type="number" placeholder="quantity" aria-label="Search">
+
+      <button class="btn btn-outline-success" id="search-btn" 
+      onclick='calculateCost(${stringifiedObj})' type="submit">Search</button>
+    </div>
   </div>
   </div>
   `
@@ -98,6 +131,15 @@ function handleBooking(obj) {
 
 
 
+
 function calculateCost(obj) {
+  const quantity= document.getElementById("quantity-input").value ;
+  const distance= document.getElementById("distance-input").value ;
+
+  const fareDiv= document.getElementById("fare")
+
+  fareDiv.innerHTML = quantity * distance * obj.farePerKilo
+  console.log(fareDiv)
+
 console.log(obj)
 }
