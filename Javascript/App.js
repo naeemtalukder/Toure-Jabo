@@ -63,7 +63,7 @@ function displayServices(service) {
     </div>
     `
     mainSection.appendChild(div)
-    console.log(service);
+    // console.log(service);
 }
 displayServices(carObject);
 displayServices(busObject);
@@ -76,6 +76,7 @@ displayServices(cycleObject);
 
 function handleBooking(obj) {
   const modalBody = document.getElementById("modal-body")
+  const stringifiedObj = JSON.stringify(obj);
 
   modalBody.innerHTML = `
   <div class="card mx-auto" style="width: 18rem;">
@@ -88,9 +89,15 @@ function handleBooking(obj) {
     <form class="d-flex flex-column" role="search">
       <input class="form-control my-2" type="search" placeholder="Search" aria-label="Search">
       <input class="form-control my-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button class="btn btn-outline-success" id="search-btn" onclick='calculateCost(${stringifiedObj})' type="submit">Search</button>
     </form>
   </div>
   </div>
   `
+}
+
+
+
+function calculateCost(obj) {
+console.log(obj)
 }
